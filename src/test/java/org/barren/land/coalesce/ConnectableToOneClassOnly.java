@@ -1,4 +1,4 @@
-package coalesce;
+package org.barren.land.coalesce;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,12 +9,11 @@ import lombok.ToString;
 @EqualsAndHashCode
 @RequiredArgsConstructor
 @ToString
-public class Unconnectable implements Connectable{
+public class ConnectableToOneClassOnly implements Connectable {
     private final int i;
 
     @Override
     public boolean canConnect(Connectable other) {
-        return false;
+        return other instanceof ConnectableToAnything;
     }
-
 }

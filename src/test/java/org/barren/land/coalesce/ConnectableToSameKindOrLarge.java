@@ -1,4 +1,4 @@
-package coalesce;
+package org.barren.land.coalesce;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

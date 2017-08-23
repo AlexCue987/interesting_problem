@@ -1,4 +1,4 @@
-package coalesce;
+package org.barren.land.coalesce;
 
 import org.junit.Assert;
 import org.junit.Test;

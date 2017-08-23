@@ -1,4 +1,4 @@
-package area;
+package org.barren.land.area;
 
 import org.junit.Assert;
 import org.junit.Test;

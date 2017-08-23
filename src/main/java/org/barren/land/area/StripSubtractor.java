@@ -1,4 +1,4 @@
-package area;
+package org.barren.land.area;
 
 import java.util.ArrayList;
 import java.util.Collections;

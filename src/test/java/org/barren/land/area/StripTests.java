@@ -1,10 +1,10 @@
-package area;
+package org.barren.land.area;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 public class StripTests {
-    Strip strip = new Strip(10, 10, 15);
+    private final Strip strip = new Strip(10, 10, 15);
 
     @Test
     public void getArea_works(){

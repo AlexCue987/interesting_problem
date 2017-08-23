@@ -1,6 +1,6 @@
-package area;
+package org.barren.land.area;
 
-import coalesce.Connectable;
+import org.barren.land.coalesce.Connectable;
 import lombok.*;
 
 import java.util.Collections;

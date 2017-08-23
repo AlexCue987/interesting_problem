@@ -1,4 +1,4 @@
-package area;
+package org.barren.land.area;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,4 +1,4 @@
-package coalesce;
+package org.barren.land.coalesce;
 
 import java.util.ArrayList;
 import java.util.List;
