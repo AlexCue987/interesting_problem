@@ -1,5 +1,6 @@
 package area;
 
+import coalesce.Connectable;
 import lombok.*;
 
 import java.util.Collections;
@@ -9,7 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Area {
+public class Area implements Connectable {
     @NonNull
     private final List<Strip> strips;
     @NonNull
@@ -18,5 +19,15 @@ public class Area {
     public static Area fromStrip(Strip strip){
         List<Strip> oneStrip = Collections.singletonList(strip);
         return new Area(oneStrip, oneStrip);
+    }
+
+    @Override
+    public boolean canConnect(Connectable other) {
+        if(!(other instanceof Strip)){
+            return false;
+        }
+        Strip strip = (Strip)other;
+        return openBorder.stream().
+                anyMatch(strip::isAdjacentTo);
     }
 }

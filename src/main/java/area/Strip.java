@@ -1,11 +1,12 @@
 package area;
 
+import coalesce.Connectable;
 import lombok.*;
 
 @Data
 @EqualsAndHashCode
 @ToString
-public class Strip {
+public class Strip implements Connectable {
     private final int x;
     private final int fromY;
     private final int toY;
@@ -29,5 +30,13 @@ public class Strip {
     public boolean isAdjacentTo(Strip other){
         return(x == other.x+1 || x == other.x-1) &&
                 !(toY<=other.fromY || other.toY<=fromY);
+    }
+
+    @Override
+    public boolean canConnect(Connectable other) {
+        if(!(other instanceof Area)){
+            return false;
+        }
+        return other.canConnect(this);
     }
 }
