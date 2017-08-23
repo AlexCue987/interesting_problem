@@ -14,9 +14,11 @@ public class StripTests {
     public void cannotCreateInvalidStrip(){
         try{
             Strip strip = new Strip(1, 2, 2);
-            Assert.fail("Must blow up");
+            Assert.fail("Must throw IllegalArgumentException");
         }catch (IllegalArgumentException e){
             Assert.assertEquals("invalid: fromY=2 >= toY=2", e.getMessage());
+        }catch (Exception e){
+            Assert.fail("Must throw IllegalArgumentException");
         }
     }
 }
