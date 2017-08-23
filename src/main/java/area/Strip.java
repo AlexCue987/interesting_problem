@@ -25,4 +25,9 @@ public class Strip {
     }
 
     public int getArea(){return toY-fromY;}
+
+    public boolean isAdjacentTo(Strip other){
+        return(x == other.x+1 || x == other.x-1) &&
+                !(toY<=other.fromY || other.toY<=fromY);
+    }
 }
