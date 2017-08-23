@@ -8,29 +8,36 @@ import java.util.List;
 
 import static org.mockito.Mockito.mock;
 
-public class AreaTests {
+public class StripToAreaCanConnectTests {
     private final Strip leftStrip = new Strip(10, 20, 30);
     private final Strip rightStrip = new Strip(10, 50, 60);
+    private final Strip adjacentToRightStrip = new Strip(11, 55, 65);
 
     private final List<Strip> twoStrips = Arrays.asList(leftStrip, rightStrip);
     private final Area area = new Area(twoStrips, twoStrips);
 
     @Test
-    public void canConnect_cannotToAnotherArea(){
+    public void canConnect_areaCannotToAnotherArea(){
         Area anotherArea = mock(Area.class);
         Assert.assertFalse(area.canConnect(anotherArea));
     }
 
     @Test
-    public void canConnect_canToAdjacentStrip(){
-        Strip adjacentToRightStrip = new Strip(11, 55, 65);
-        Assert.assertTrue(area.canConnect(adjacentToRightStrip));
+    public void stripCannotConnectToAnotherStrip(){
+        Assert.assertFalse(rightStrip.canConnect(adjacentToRightStrip));
     }
 
     @Test
-    public void canConnect_cannotToNonAdjacentStrip(){
+    public void canConnect_areaCanToAdjacentStrip(){
+        Assert.assertTrue(area.canConnect(adjacentToRightStrip));
+        Assert.assertTrue(adjacentToRightStrip.canConnect(area));
+    }
+
+    @Test
+    public void canConnect_areaCannotToNonAdjacentStrip(){
         Strip nonAdjacentStrip = new Strip(11, 60, 65);
         Assert.assertFalse(area.canConnect(nonAdjacentStrip));
+        Assert.assertFalse(nonAdjacentStrip.canConnect(area));
     }
 
 }
