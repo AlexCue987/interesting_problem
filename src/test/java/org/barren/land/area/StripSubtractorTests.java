@@ -74,4 +74,19 @@ public class StripSubtractorTests {
                 );
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void subtract_worksForList(){
+        Strip left = new Strip(1, 10, 20);
+        Strip right = new Strip(1, 30, 40);
+        Strip insideLeft = new Strip(1, 14, 16);
+        List<Strip> minuends = Arrays.asList(left, right);
+        List<Strip> actual = sut.subtractFromList(minuends, insideLeft);
+        List<Strip> expected = Arrays.asList(
+                new Strip(1, 10, 14),
+                new Strip(1, 16, 20),
+                new Strip(1, 30, 40)
+        );
+        Assert.assertEquals(expected, actual);
+    }
 }

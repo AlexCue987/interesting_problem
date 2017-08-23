@@ -3,6 +3,7 @@ package org.barren.land.area;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StripSubtractor {
     public List<Strip> subtract(Strip minuend, Strip subtrahend){
@@ -17,6 +18,13 @@ public class StripSubtractor {
             ret.add(new Strip(minuend.getX(), subtrahend.getToY(), minuend.getToY()));
         }
         return ret;
+    }
+
+    public List<Strip> subtractFromList(List<Strip> minuends, Strip subtrahend) {
+        return minuends.stream().
+                map(minuend -> subtract(minuend, subtrahend)).
+                flatMap(List::stream).
+                collect(Collectors.toList());
     }
 
     private boolean stripsDoNotOverlap(Strip minuend, Strip subtrahend) {
