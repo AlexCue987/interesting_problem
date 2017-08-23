@@ -37,6 +37,23 @@ public class CoalescerTests {
     }
 
     @Test
+    public void coalescesIntoOneGroup_becauseOneCanConnectToAnything(){
+        List<List<Connectable>> groups = Arrays.asList(
+                Collections.singletonList(new ConnectableToOneClassOnly(1)),
+                Collections.singletonList(new ConnectableToOneClassOnly(2)),
+                Collections.singletonList(new ConnectableToOneClassOnly(3)),
+                Collections.singletonList(new ConnectableToOneClassOnly(4)),
+                Collections.singletonList(new ConnectableToAnything(5))
+        );
+        List<Connectable> allItems = groups.stream().flatMap(List::stream).collect(Collectors.toList());
+        List<List<Connectable>> actual = coalescer.coalesce(groups);
+        Assert.assertEquals(1, actual.size());
+        for(Connectable connectable : allItems){
+            Assert.assertTrue(actual.get(0).contains(connectable));
+        }
+    }
+
+    @Test
     public void coalescesIntoTwoGroupsByKind(){
         List<List<Connectable>> groups = Arrays.asList(
                 Collections.singletonList(new ConnectableToSameKindOrLarge(1, 1)),
@@ -76,8 +93,8 @@ public class CoalescerTests {
     private String joinGroups(List<List<Connectable>> groups) {
         return groups.stream().map(this::joinItems).collect(Collectors.joining("\n"));
     }
+
     private String joinItems(List<Connectable> items){
         return items.stream().map(Object::toString).collect(Collectors.joining(",\n"));
     }
-
 }

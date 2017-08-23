@@ -9,6 +9,8 @@ public class Coalescer {
         boolean makingProgress = true;
         while(makingProgress) {
             makingProgress = false;
+            //because we are coalescing groups, comparing two groups only once is not enough:
+            // we might have added to any of the groups and need to re-compare
             for (int i = 0; i < groupsToCoalesce.size() - 1; i++) {
                 List<Connectable> possibleTarget = groupsToCoalesce.get(i);
                 for (int j = i + 1; j < groupsToCoalesce.size(); j++) {
@@ -28,7 +30,6 @@ public class Coalescer {
     }
 
     boolean canConnect(List<Connectable> group1, List<Connectable> group2){
-        //nested loop is simpler than streaming alternatives
         for(int i=0; i<group1.size(); i++){
             for(int j=0; j<group2.size(); j++){
                 if(group1.get(i).canConnect(group2.get(j))){
