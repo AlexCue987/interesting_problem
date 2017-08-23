@@ -22,6 +22,22 @@ public class CoalescerTests {
     }
 
     @Test
+    public void removesEmptyGroups(){
+        List<List<Connectable>> groups = Arrays.asList(
+                Collections.emptyList(),
+                Collections.singletonList(new Unconnectable(1)),
+                Collections.emptyList(),
+                Collections.singletonList(new Unconnectable(2)),
+                Collections.emptyList()
+        );
+        List<List<Connectable>> actual = coalescer.coalesce(groups);
+        groups = groups.stream().filter(t ->t.size()>0).collect(Collectors.toList());
+        String expectedStr = joinGroups(groups);
+        String actualStr = joinGroups(actual);
+        Assert.assertEquals(expectedStr, actualStr);
+    }
+
+    @Test
     public void coalescesIntoOneGroup(){
         List<List<Connectable>> groups = Arrays.asList(
                 Collections.singletonList(new ConnectableToAnything(1)),

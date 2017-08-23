@@ -43,7 +43,9 @@ public class Coalescer {
     List<List<Connectable>> getDeepCopy(List<List<Connectable>> groups){
         List<List<Connectable>> ret = new ArrayList<>(groups.size());
         for(List<Connectable> group: groups){
-            ret.add(new ArrayList<>(group));
+            if(group.size() > 0) {
+                ret.add(new ArrayList<>(group));
+            }
         }
         return ret;
     }
