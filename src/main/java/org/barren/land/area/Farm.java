@@ -7,7 +7,7 @@ public class Farm {
     public Farm(Rectangle allArea, List<Rectangle> barrenLand){
         List<Strip> allStrips = allArea.getStrips();
         Map<Integer, List<Strip>> barrenStripsByX = getBarrenStripsByX(barrenLand);
-        Map<Integer, List<Strip>> fertileStrips = getFertileStrips(allStrips, barrenStripsByX);
+        Map<Integer, List<Strip>> fertileStrips = getFertileStripsByX(allStrips, barrenStripsByX);
     }
 
     static Map<Integer, List<Strip>> getBarrenStripsByX(List<Rectangle> barrenLand) {
@@ -19,7 +19,7 @@ public class Farm {
                 collect(Collectors.groupingBy(Strip::getX));
     }
 
-    static Map<Integer, List<Strip>> getFertileStrips(List<Strip> allStrips, Map<Integer, List<Strip>> barrenStripsByX){
+    static Map<Integer, List<Strip>> getFertileStripsByX(List<Strip> allStrips, Map<Integer, List<Strip>> barrenStripsByX){
         final List<Strip> noBarrenStrips = new ArrayList<>();
         StripSubtractor stripSubtractor = new StripSubtractor();
         Map<Integer, List<Strip>> fertileStripsByX = new HashMap<>(allStrips.size());
@@ -35,4 +35,9 @@ public class Farm {
         }
         return fertileStripsByX;
     }
+//
+//    static List<Area> coalesceStrips(Map<Integer, List<Strip>> strips){
+//        List<Strip>
+//        List<Area> areas =
+//    }
 }
