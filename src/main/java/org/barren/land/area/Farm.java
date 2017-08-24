@@ -1,13 +1,24 @@
 package org.barren.land.area;
 
+import org.barren.land.joiner.StripJoiner;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Farm {
+    private final List<Integer> areaSizes;
+
     public Farm(Rectangle allArea, List<Rectangle> barrenLand){
         List<Strip> allStrips = allArea.getStrips();
         Map<Integer, List<Strip>> barrenStripsByX = getBarrenStripsByX(barrenLand);
-        Map<Integer, List<Strip>> fertileStrips = getFertileStripsByX(allStrips, barrenStripsByX);
+        Map<Integer, List<Strip>> fertileStripsByX = getFertileStripsByX(allStrips, barrenStripsByX);
+        StripJoiner joiner = new StripJoiner();
+        List<Area> areas = joiner.join(fertileStripsByX, allArea.getBottomLeftX(), allArea.getTopRightX());
+        areaSizes = getSortedAreaSizes(areas);
+    }
+
+    public List<Integer> getAreaSizes() {
+        return areaSizes;
     }
 
     static Map<Integer, List<Strip>> getBarrenStripsByX(List<Rectangle> barrenLand) {
@@ -35,9 +46,11 @@ public class Farm {
         }
         return fertileStripsByX;
     }
-//
-//    static List<Area> coalesceStrips(Map<Integer, List<Strip>> strips){
-//        List<Strip>
-//        List<Area> areas =
-//    }
+
+    private List<Integer> getSortedAreaSizes(List<Area> areas) {
+        return areas.stream().
+                map(Area::getAreaInSquareMeters).
+                sorted().
+                collect(Collectors.toList());
+    }
 }

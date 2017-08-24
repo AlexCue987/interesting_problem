@@ -7,8 +7,34 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class FarmTests {
-    private final Rectangle allArea = new Rectangle(0, 0, 4, 4);
-    private final List<Strip> allStrips = allArea.getStrips();
+    private final Rectangle smallTestArea = new Rectangle(0, 0, 4, 4);
+    private final List<Strip> allStrips = smallTestArea.getStrips();
+
+    @Test
+    public void handlesSampleInput1(){
+        Rectangle sampleFarm = new Rectangle(0, 0, 400, 600);
+        List<Rectangle> barrenLand = Collections.singletonList(
+                new Rectangle(0, 292, 400, 308));
+        Farm farm = new Farm(sampleFarm, barrenLand);
+        List<Integer> actual = farm.getAreaSizes();
+        List<Integer> expected = Arrays.asList(116800, 116800);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void handlesSampleInput2(){
+        Rectangle sampleFarm = new Rectangle(0, 0, 400, 600);
+        List<Rectangle> barrenLand = Arrays.asList(
+                new Rectangle(48, 192, 352, 208),
+                new Rectangle(48, 392, 352, 408),
+                new Rectangle(120, 52, 136, 548),
+                new Rectangle(260, 52, 276, 548)
+        );
+        Farm farm = new Farm(sampleFarm, barrenLand);
+        List<Integer> actual = farm.getAreaSizes();
+        List<Integer> expected = Arrays.asList(22816, 192608);
+        Assert.assertEquals(expected, actual);
+    }
 
     @Test
     public void getFertileStrips_keepsAsIsIfNoBarrenLand(){
