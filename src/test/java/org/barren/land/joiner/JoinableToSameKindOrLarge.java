@@ -1,4 +1,4 @@
-package org.barren.land.coalesce;
+package org.barren.land.joiner;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,16 +9,16 @@ import lombok.ToString;
 @EqualsAndHashCode
 @RequiredArgsConstructor
 @ToString
-public class ConnectableToSameKindOrLarge implements Connectable{
+public class JoinableToSameKindOrLarge implements Joinable {
     private final int kind;
     private final int size;
 
     @Override
-    public boolean canConnect(Connectable other) {
-        if(!(other instanceof ConnectableToSameKindOrLarge)){
+    public boolean canJoin(Joinable other) {
+        if(!(other instanceof JoinableToSameKindOrLarge)){
             return false;
         }
-        ConnectableToSameKindOrLarge otherConnectableToSameKindOrLarge = (ConnectableToSameKindOrLarge)other;
+        JoinableToSameKindOrLarge otherConnectableToSameKindOrLarge = (JoinableToSameKindOrLarge)other;
         return kind == otherConnectableToSameKindOrLarge.kind ||
                 (isLarge() && otherConnectableToSameKindOrLarge.isLarge());
     }

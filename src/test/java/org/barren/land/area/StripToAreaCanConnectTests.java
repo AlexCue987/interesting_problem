@@ -19,25 +19,25 @@ public class StripToAreaCanConnectTests {
     @Test
     public void canConnect_areaCannotToAnotherArea(){
         Area anotherArea = mock(Area.class);
-        Assert.assertFalse(area.canConnect(anotherArea));
+        Assert.assertFalse(area.canJoin(anotherArea));
     }
 
     @Test
     public void stripCannotConnectToAnotherStrip(){
-        Assert.assertFalse(rightStrip.canConnect(adjacentToRightStrip));
+        Assert.assertFalse(rightStrip.canJoin(adjacentToRightStrip));
     }
 
     @Test
     public void canConnect_areaCanToAdjacentStrip(){
-        Assert.assertTrue(area.canConnect(adjacentToRightStrip));
-        Assert.assertTrue(adjacentToRightStrip.canConnect(area));
+        Assert.assertTrue(area.canJoin(adjacentToRightStrip));
+        Assert.assertTrue(adjacentToRightStrip.canJoin(area));
     }
 
     @Test
     public void canConnect_areaCannotToNonAdjacentStrip(){
         Strip nonAdjacentStrip = new Strip(11, 60, 65);
-        Assert.assertFalse(area.canConnect(nonAdjacentStrip));
-        Assert.assertFalse(nonAdjacentStrip.canConnect(area));
+        Assert.assertFalse(area.canJoin(nonAdjacentStrip));
+        Assert.assertFalse(nonAdjacentStrip.canJoin(area));
     }
 
 }

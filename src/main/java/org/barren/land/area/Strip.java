@@ -1,12 +1,12 @@
 package org.barren.land.area;
 
-import org.barren.land.coalesce.Connectable;
+import org.barren.land.joiner.Joinable;
 import lombok.*;
 
 @Data
 @EqualsAndHashCode
 @ToString
-public class Strip implements Connectable {
+public class Strip implements Joinable {
     private final int x;
     private final int fromY;
     private final int toY;
@@ -33,10 +33,10 @@ public class Strip implements Connectable {
     }
 
     @Override
-    public boolean canConnect(Connectable other) {
+    public boolean canJoin(Joinable other) {
         if(!(other instanceof Area)){
             return false;
         }
-        return other.canConnect(this);
+        return other.canJoin(this);
     }
 }

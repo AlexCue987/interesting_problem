@@ -1,10 +1,9 @@
 package org.barren.land.area;
 
-import org.barren.land.coalesce.Connectable;
+import org.barren.land.joiner.Joinable;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Area implements Connectable {
+public class Area implements Joinable {
     @NonNull
     private final List<Strip> strips;
     @NonNull
@@ -23,16 +22,16 @@ public class Area implements Connectable {
         return new Area(oneStrip, oneStrip);
     }
 
-    public static Area fromAreasAndStrips(List<Connectable> areasAndStrips){
+    public static Area fromAreasAndStrips(List<Joinable> areasAndStrips){
         List<Strip> strips = new ArrayList<>();
         List<Strip> openBorder = new ArrayList<>();
-        for(Connectable connectable: areasAndStrips){
-            if(connectable instanceof Area){
-                Area area = (Area)connectable;
+        for(Joinable joinable : areasAndStrips){
+            if(joinable instanceof Area){
+                Area area = (Area) joinable;
                 strips.addAll(area.getStrips());
                 continue;
             }
-            Strip strip = (Strip) connectable;
+            Strip strip = (Strip) joinable;
             strips.add(strip);
             openBorder.add(strip);
         }
@@ -40,7 +39,7 @@ public class Area implements Connectable {
     }
 
     @Override
-    public boolean canConnect(Connectable other) {
+    public boolean canJoin(Joinable other) {
         if(!(other instanceof Strip)){
             return false;
         }
