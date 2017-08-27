@@ -16,21 +16,21 @@ public class StripJoiner {
         List<Area> openAreas = new ArrayList<>();
         List<Area> closedAreas = new ArrayList<>();
         Joiner joiner = new Joiner();
-        for(int x=fromX; x<toX; x++){
-            List<Strip> stripsOnRow = stripsByX.getOrDefault(x, noStrips);
-            List<List<Joinable>> toJoin = getItemsToJoin(openAreas, stripsOnRow);
-            List<List<Joinable>> connectedGroups = joiner.join(toJoin);
+        for(int rowNumber=fromX; rowNumber<toX; rowNumber++){
+            List<Strip> stripsOnRow = stripsByX.getOrDefault(rowNumber, noStrips);
+            List<List<Joinable>> areasAndStripsToJoin = getItemsToJoin(openAreas, stripsOnRow);
+            List<List<Joinable>> joinedGroups = joiner.join(areasAndStripsToJoin);
             openAreas.clear();
-            for(List<Joinable> connectedGroup : connectedGroups){
-                if(isGroupOfOneItem(connectedGroup)){
-                    Joinable soleItem = connectedGroup.get(0);
-                    if(isAreaNotConnectedToStrips(soleItem)){
+            for(List<Joinable> joinedGroup : joinedGroups){
+                if(isGroupOfOneItem(joinedGroup)){
+                    Joinable soleItem = joinedGroup.get(0);
+                    if(isArea(soleItem)){
                         closedAreas.add((Area)soleItem);
-                    }else if(isStripNotConnectedToAreas(soleItem)){
+                    }else if(isStrip(soleItem)){
                         openAreas.add(Area.fromStrip((Strip)soleItem));
                     }
                 }else{
-                    Area openArea = Area.fromAreasAndStrips(connectedGroup);
+                    Area openArea = Area.fromAreasAndStrips(joinedGroup);
                     openAreas.add(openArea);
                 }
             }
@@ -43,11 +43,11 @@ public class StripJoiner {
         return connectedGroup.size() == 1;
     }
 
-    private boolean isStripNotConnectedToAreas(Joinable soleItem) {
+    private boolean isStrip(Joinable soleItem) {
         return soleItem instanceof Strip;
     }
 
-    private boolean isAreaNotConnectedToStrips(Joinable soleItem) {
+    private boolean isArea(Joinable soleItem) {
         return soleItem instanceof Area;
     }
 

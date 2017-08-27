@@ -9,13 +9,13 @@ public class Joiner {
         boolean makingProgress = true;
         while(makingProgress) {
             makingProgress = false;
-            //because we are coalescing groups, comparing two groups only once is not enough:
+            //because we are joining groups, comparing two groups only once is not enough:
             // we might have added to any of the groups and need to re-compare
             for (int i = 0; i < groupsToJoin.size() - 1; i++) {
                 List<Joinable> possibleTarget = groupsToJoin.get(i);
                 for (int j = i + 1; j < groupsToJoin.size(); j++) {
                     List<Joinable> possibleSource = groupsToJoin.get(j);
-                    if (canConnect(possibleSource, possibleTarget)) {
+                    if (canJoin(possibleSource, possibleTarget)) {
                         makingProgress = true;
                         possibleTarget.addAll(possibleSource);
                         groupsToJoin.remove(j);
@@ -29,7 +29,7 @@ public class Joiner {
         return groupsToJoin;
     }
 
-    boolean canConnect(List<Joinable> group1, List<Joinable> group2){
+    boolean canJoin(List<Joinable> group1, List<Joinable> group2){
         for(int i=0; i<group1.size(); i++){
             for(int j=0; j<group2.size(); j++){
                 if(group1.get(i).canJoin(group2.get(j))){

@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.mock;
 
-public class StripToAreaCanConnectTests {
+public class StripToAreaCanJoinTests {
     private final Strip leftStrip = new Strip(10, 20, 30);
     private final Strip rightStrip = new Strip(10, 50, 60);
     private final Strip adjacentToRightStrip = new Strip(11, 55, 65);

@@ -43,11 +43,4 @@ public class Rectangle {
                 map(x -> new Strip(x, bottomLeftY, topRightY)).
                 collect(Collectors.toList());
     }
-//
-//    public boolean isInsideOf(Rectangle outer){
-//        return bottomLeftX>=outer.bottomLeftX &&
-//                bottomLeftY>=outer.bottomLeftY &&
-//                topRightX<=outer.topRightX &&
-//                topRightY<=outer.topRightY;
-//    }
 }

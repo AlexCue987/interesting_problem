@@ -11,29 +11,19 @@ public class FarmTests {
     private final List<Strip> allStrips = smallTestArea.getStrips();
 
     @Test
-    public void handlesSampleInput1(){
-        Rectangle sampleFarm = new Rectangle(0, 0, 400, 600);
-        List<Rectangle> barrenLand = Collections.singletonList(
-                new Rectangle(0, 292, 400, 308));
-        Farm farm = new Farm(sampleFarm, barrenLand);
-        List<Integer> actual = farm.getAreaSizes();
-        List<Integer> expected = Arrays.asList(116800, 116800);
-        Assert.assertEquals(expected, actual);
+    public void example1_works(){
+        String input = "{\"0 292 399 307\"}";
+        Farm farm = Farm.fromStdinInput(input);
+        String actual = farm.getAreaSizesAsString();
+        Assert.assertEquals("116800 116800", actual);
     }
 
     @Test
-    public void handlesSampleInput2(){
-        Rectangle sampleFarm = new Rectangle(0, 0, 400, 600);
-        List<Rectangle> barrenLand = Arrays.asList(
-                new Rectangle(48, 192, 352, 208),
-                new Rectangle(48, 392, 352, 408),
-                new Rectangle(120, 52, 136, 548),
-                new Rectangle(260, 52, 276, 548)
-        );
-        Farm farm = new Farm(sampleFarm, barrenLand);
-        List<Integer> actual = farm.getAreaSizes();
-        List<Integer> expected = Arrays.asList(22816, 192608);
-        Assert.assertEquals(expected, actual);
+    public void example2_works(){
+        String input = "{\"48 192 351 207\", \"48 392 351 407\", \"120 52 135 547\", \"260 52 275 547\"}";
+        Farm farm = Farm.fromStdinInput(input);
+        String actual = farm.getAreaSizesAsString();
+        Assert.assertEquals("22816 192608", actual);
     }
 
     @Test
@@ -86,21 +76,5 @@ public class FarmTests {
         expected.put(3, Collections.singletonList(new Strip(3, 0, 4)));
         Map<Integer, List<Strip>> actual = Farm.getFertileStripsByX(allStrips, barrenLand);
         Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void example1_works(){
-        String input = "{\"0 292 399 307\"}";
-        Farm farm = Farm.fromStdinInput(input);
-        String actual = farm.getAreaSizesAsString();
-        Assert.assertEquals("116800 116800", actual);
-    }
-
-    @Test
-    public void example2_works(){
-        String input = "{\"48 192 351 207\", \"48 392 351 407\", \"120 52 135 547\", \"260 52 275 547\"}";
-        Farm farm = Farm.fromStdinInput(input);
-        String actual = farm.getAreaSizesAsString();
-        Assert.assertEquals("22816 192608", actual);
     }
 }
